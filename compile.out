@@ -1,0 +1,25 @@
+g++ -I. -g -Wall -c fuelpump.cpp -o fuelpump.o
+In file included from fuelpump.cpp:1:0:
+fuelpump.h: In constructor ‘FuelPump::FuelPump()’:
+fuelpump.h:21:9: warning: ‘FuelPump::m_ImpellerDiameter’ will be initialized after [-Wreorder]
+     int m_ImpellerDiameter;
+         ^
+fuelpump.h:20:9: warning:   ‘int FuelPump::m_Head’ [-Wreorder]
+     int m_Head;
+         ^
+fuelpump.cpp:6:1: warning:   when initialized here [-Wreorder]
+ FuelPump::FuelPump() : m_ImpellerDiameter(m_Head/2), m_Head(5), m_Viscosity(2.8f)
+ ^
+In file included from fuelpump.cpp:1:0:
+fuelpump.h:20:9: warning: ‘FuelPump::m_Head’ will be initialized after [-Wreorder]
+     int m_Head;
+         ^
+fuelpump.h:19:11: warning:   ‘float FuelPump::m_Viscosity’ [-Wreorder]
+     float m_Viscosity;
+           ^
+fuelpump.cpp:6:1: warning:   when initialized here [-Wreorder]
+ FuelPump::FuelPump() : m_ImpellerDiameter(m_Head/2), m_Head(5), m_Viscosity(2.8f)
+ ^
+g++ -I. -g -Wall -c pump.cpp -o pump.o
+g++ -I. -g -Wall -c main.cpp -o main.o
+g++  fuelpump.o  pump.o  main.o -Wall  -o reorder
